@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 const app = express()
 
 app.use(cors({
-  origin: "https://bulkmail-six.vercel.app" // frontend URL
+    origin: "https://bulkmail-six.vercel.app" // frontend URL
 }));
 
 app.use(express.json())
@@ -49,8 +49,10 @@ app.post("/sendemail", (req, res) => {
             }
 
         }).then(() => {
+            res.setHeader("Access-Control-Allow-Origin", "https://bulkmail-six.vercel.app");
             res.send(true)
         }).catch(() => {
+            res.setHeader("Access-Control-Allow-Origin", "https://bulkmail-six.vercel.app");
             res.send(false)
         })
     }).catch((error) => { console.log(error) })
