@@ -5,7 +5,9 @@ import mongoose from 'mongoose';
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: "https://bulkmail-six.vercel.app" // frontend URL
+}));
 
 app.use(express.json())
 
