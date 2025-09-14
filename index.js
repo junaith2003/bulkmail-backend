@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 const app = express()
 
 app.use(cors({
-    origin: "https://bulkmail-six.vercel.app" // frontend URL
+    origin: ["https://bulkmail-six.vercel.app", "http://localhost:5173"]
 }));
 
 app.use(express.json())
@@ -19,8 +19,7 @@ const credential = mongoose.model("credential", {}, "bulkmail")
 
 // Handle preflight requests
 app.options("/sendemail", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://bulkmail-b0l22t0e9-junaith2003s-projects.vercel.app");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.sendStatus(200);
 });
@@ -58,10 +57,10 @@ app.post("/sendemail", (req, res) => {
             }
 
         }).then(() => {
-            res.setHeader("Access-Control-Allow-Origin", "https://bulkmail-six.vercel.app");
+            res.setHeader("Access-Control-Allow-Origin",  req.headers.origin);
             res.send(true)
         }).catch(() => {
-            res.setHeader("Access-Control-Allow-Origin", "https://bulkmail-six.vercel.app");
+            res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
             res.send(false)
         })
     }).catch((error) => { console.log(error) })
