@@ -17,14 +17,6 @@ mongoose.connect("mongodb+srv://junaithakther01_db_user:Junaith2003%40@cluster0.
 
 const credential = mongoose.model("credential", {}, "bulkmail")
 
-// Handle preflight requests
-app.options("/sendemail", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.sendStatus(200);
-});
-
-
 app.post("/sendemail", (req, res) => {
 
     const msg = req.body.msg
@@ -57,10 +49,8 @@ app.post("/sendemail", (req, res) => {
             }
 
         }).then(() => {
-            res.setHeader("Access-Control-Allow-Origin",  req.headers.origin);
             res.send(true)
         }).catch(() => {
-            res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
             res.send(false)
         })
     }).catch((error) => { console.log(error) })
